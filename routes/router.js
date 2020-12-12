@@ -20,7 +20,7 @@ router.use("/auth", AuthRouter);
  * @desc route for profile
 */
 
-// router.use("/profile", ProfileRouter);
+router.use("/profile", ProfileRouter);
 
 /**
  * @route /api/book

@@ -1,6 +1,7 @@
 const express = require('express');
-const { check } = require('express-validator');
 
+const registerMiddleware = require('../middleware/RegisterMiddleware');
+const loginMiddleware = require('../middleware/LoginMiddleware');
 const router = express.Router();
 
 const AuthController = require('../controllers/AuthController')
@@ -13,26 +14,15 @@ const AuthController = require('../controllers/AuthController')
  * @access Public
 */
 
-router.post("/register", [
-    check('password', 'Please enter a password more then 6 char.!!!').isLength(
-        {
-            min: 6
-        }
-    ),
-    check('email', 'Please enter a valid email!!!').isEmail(),
-    check('firstName', 'Please enter a First Name!!!').exists(),
-    check('lastName', 'Please enter a Last Name!!!').exists(),
-
-],
- AuthController.authRegister)
+router.post("/register", registerMiddleware, AuthController.authRegister)
 
 /**
  * @route POST /api/auth/login
  * @desc Login endpoint
- * @access Private
+ * @access Public
 */
 
-router.post("/login", AuthController.authLogin)
+router.post("/login", loginMiddleware, AuthController.authLogin)
 
 
 module.exports = router;

@@ -1,12 +1,11 @@
 const User = require('../models/UserModel');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
+var jwt = require('jsonwebtoken');
 
 exports.authRegister = async (req, res) => {
-    //TODO: register function
-    // req.body.'....'
 
-    const {firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
     //console.log(firstName, lastName, email, password);
 
     // TODO1: validate field
@@ -25,19 +24,19 @@ exports.authRegister = async (req, res) => {
 
     const validationErr = validationResult(req)
     // console.log(validationErr)
-    if(validationErr?.errors?.length > 0) {
+    if (validationErr?.errors?.length > 0) {
         return res
-        .status(400)
-        .json({errors: validationErr.array()})
+            .status(400)
+            .json({ errors: validationErr.array() })
     }
 
 
     // TODO2: Check already registered
-    const userData = await User.findOne({email:email}) // ({email}) same
-    if(userData) {
+    const userData = await User.findOne({ email: email }) // ({email}) same
+    if (userData) {
         return res
-        .status(400)
-        .json({errors: [{message: "User Already exist!!"}]})
+            .status(400)
+            .json({ errors: [{ message: "User Already exist!!" }] })
     }
 
     // TODO3: crpyt password
@@ -59,8 +58,52 @@ exports.authRegister = async (req, res) => {
     res.send('Register Completed')
 }
 
-exports.authLogin = (req, res) => {
-    // TODO: Auth.
-    // TODO: Login func.
+exports.authLogin = async (req, res) => {
+    // TODO1: field validation
+    // TODO2: user exist
+    // TODO3: password compare
+    // TODO4: authentication return JSON WEB TOKEN (jwt)
+
+    // TODO1: field validation
+    const { email, password } = req.body;
+
+    const validationErr = validationResult(req)
+    // console.log(validationErr)
+    if (validationErr?.errors?.length > 0) {
+        return res
+            .status(400)
+            .json({ errors: validationErr.array() })
+    }
+
+    // TODO2: user exist
+    const userData = await User.findOne({ email: email }) // ({email}) same
+    if (!userData) {
+        return res
+            .status(400)
+            .json({ errors: [{ message: "User doesn't exist!!" }] })
+    }
+
+    // TODO3: password compare
+    const isPasswordMatch = await bcrypt.compare(password, userData.password);
+
+    if (!isPasswordMatch) {
+        return res
+            .status(400)
+            .json({ errors: [{ message: "Invalid credentials" }] })
+    }
+
+    // TODO4: authentication return JSON WEB TOKEN (jwt)
+    jwt.sign({ userData }, process.env.JWT_SECRET_KEY, { expiresIn: 3600 }, (err, token) => {
+        if (err) {
+            return res
+                .status(400)
+                .json({ errors: [{ message: "Unknown error" }] })
+        }
+        console.log(token)
+    });
+
+
+
+
     res.send('Login Completed')
 }

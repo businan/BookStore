@@ -93,17 +93,20 @@ exports.authLogin = async (req, res) => {
     }
 
     // TODO4: authentication return JSON WEB TOKEN (jwt)
-    jwt.sign({ userData }, process.env.JWT_SECRET_KEY, { expiresIn: 3600 }, (err, token) => {
-        if (err) {
-            return res
-                .status(400)
-                .json({ errors: [{ message: "Unknown error" }] })
+    jwt.sign(
+        { userData },
+        process.env.JWT_SECRET_KEY,
+        { expiresIn: 3600 },
+        (err, token) => {
+          if (err) {
+            return res.status(400).json({ errors: [{ message: "Unknown Error" }] });
+          }
+          res.send(token);
         }
-        console.log(token)
-    });
+      );
+    };
 
 
 
 
-    res.send('Login Completed')
-}
+    

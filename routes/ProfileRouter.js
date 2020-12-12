@@ -1,5 +1,5 @@
 const express = require('express');
-
+const authMiddleware = require('../middleware/AuthMiddleware');
 const router = express.Router();
 
 /**
@@ -9,8 +9,9 @@ const router = express.Router();
 */
 
 
-router.get("/",  (req, res) => {
-    res.send('Private Profile')
+router.get("/", authMiddleware, (req, res) => {
+    res.send(req.decodedUser)
 })
 
 module.exports = router;
+

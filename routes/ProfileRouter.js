@@ -1,17 +1,23 @@
-const express = require('express');
-const authMiddleware = require('../middleware/AuthMiddleware');
+const express = require("express");
+const auth = require("../middleware/authMiddleware");
 const router = express.Router();
+const ProfileController = require("../controllers/ProfileController");
+
+// base url: /api/profile
 
 /**
- * @route /api/profile
- * @desc route for profile
- * @access Private
-*/
+ * @route   GET /api/profile
+ * @desc    Profile endpoint
+ * @access  Private
+ */
+router.get("/", auth, ProfileController.getProfileInfo);
 
-
-router.get("/", authMiddleware, (req, res) => {
-    res.send(req.decodedUser)
-})
+/**
+ * @route   PUT /api/profile/update
+ * @desc    Update Profile endpoint
+ * @access  Private
+ */
+router.get("/update", auth, ProfileController.updateProfileInfo);
 
 module.exports = router;
 

@@ -27,7 +27,7 @@ router.use("/profile", ProfileRouter);
  * @desc route for book
 */
 
-// router.use("/book", BookRouter);
+router.use("/books", BookRouter);
 
 
 

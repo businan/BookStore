@@ -12,7 +12,7 @@ const router = require('./routes/router');
 
 app.use("/api", router)
 
-const host = '0.0.0.0';
+
 // production
 if (process.env.NODE_ENV === "production") {
    app.use(express.static("client/build"));
@@ -23,6 +23,6 @@ app.get("*", (req, res) => {
 };
 
 
-app.listen(process.env.port || 4000, () => {
+app.listen(process.env.PORT || 4000, () => {
   console.log(`Server listening on port ${process.env.PORT}`)
 })

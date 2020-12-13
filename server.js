@@ -23,7 +23,7 @@ app.get("*", (req, res) => {
 };
 
 
-const server = app.listen(process.env.PORT || 4000, function () {
+const server = app.listen(process.env.port || 4000, function () {
     const port = server.address().port;
     console.log("Express is working on port " + port);
   });

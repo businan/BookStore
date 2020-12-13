@@ -23,6 +23,7 @@ app.get("*", (req, res) => {
 };
 
 
-app.listen(process.env.PORT || 4000, function(){
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+const server = app.listen(process.env.PORT || 4000, function () {
+    const port = server.address().port;
+    console.log("Express is working on port " + port);
   });

@@ -12,7 +12,7 @@ const router = require('./routes/router');
 
 app.use("/api", router)
 
-
+const host = '0.0.0.0';
 // production
 if (process.env.NODE_ENV === "production") {
    app.use(express.static("client/build"));
@@ -21,8 +21,9 @@ app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname,"client","build","index.html"))
 }) 
 };
+const hostVar = '0.0.0.0';
+const port = process.env.PORT || 3000;
 
-
-app.listen(process.env.port || 3000, function(){
+app.listen(port, hostVar, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   });

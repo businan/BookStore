@@ -13,6 +13,16 @@ const router = require('./routes/router');
 app.use("/api", router)
 
 
+// production
+if (process.env.NODE_ENV === "production") {
+   app.use(express.static("client/build"));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname,"client","build","index.html"))
+}) 
+};
+
+
 app.listen(process.env.PORT || 4000, function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   });

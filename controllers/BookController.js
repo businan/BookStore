@@ -14,7 +14,7 @@ exports.getBookDetails = async (req, res) => {
   try {
     const BookDetails = await Book.findOne({
       _id: req.params.id,
-    });
+    }); // Book.findById(req.params.id)
 
     if (!BookDetails) {
       return res

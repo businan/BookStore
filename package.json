@@ -15,6 +15,10 @@
     "develop": "concurrently -n 'server,client' -c 'red,blue' \"npm run server\" \"npm run start-client\"",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/businan/BookStore.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

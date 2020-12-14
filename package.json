@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "engines": {
-    "node": "14.15.1",
-    "npm": "6.14.9"
+    "node": ">=14.15.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,6 +21,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/businan/bookstore.git/issues"
+  },
+  "homepage": "https://github.com/businan/bookstore#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

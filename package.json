@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+    "dev":"npm-run-all -p server start-client develop heroku-postbuild",
     "server": "nodemon server.js",
     "start-client": "npm start --prefix client",
     "develop": "concurrently -n 'server,client' -c 'red,blue' \"npm run server\" \"npm run start-client\"",

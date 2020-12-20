@@ -8,11 +8,11 @@ const router = require('./routes/router');
 
 connectDB();
 
-app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", router)
 
+app.use(express.json());
 
 // production
 if (process.env.NODE_ENV === "production") {
